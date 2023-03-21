@@ -280,3 +280,50 @@ Notes on Javascript:
     }
     console.log(drink2);
 - Not a full replacement for if/else statements
+
+///////////////////////////////////////////////////////////////////////////////
+
+3/21/23
+
+13. Functions
+
+- A function is a piece of program wrapped in a value. Such values can be applied in order to run the wrapped program.
+- Fundamental building block of JavaScript
+- Executing a function is called invoking, calling, running or applying.
+- A function can be called by putting parantheses() after an expression that produces a function value.
+- The values between the parantheses are given to the program inside the function.
+- Values given to the function are called arguments.
+- When a function produces a value, it is said to return that value.
+  - Anything that produces a value is an expression is JavaScript.
+- Examples:
+  - Function declaration: Function that can be used before it's declared.
+    // function calcAge(birthYear) {
+    // return 2037 - birthYear;
+    // }
+  - Function expressions: Function value stored in a variable
+    // const calcAge = function (birthYear) {
+    // return 2037 - birthYear;
+    // };
+  - Arrow Function: Great for a quick one line function.
+    // const calcAge = birthYear => 2037 - birthYear;
+  - Three different ways of writing functions ut all work in similar way
+    - Receive input data, transform data, and then output data.
+- Function Structure:
+  // function calcAge(birthYear, firstName) {
+  // const age = 2037 - birthYear;
+  // console.log(`${firstName} is ${age} years old.`);
+  // return age;
+  // }
+  const age = calcAge(1991, 'Bob');
+  - Function name:
+    // (calcAge)
+  - Parameter: Placeholder to receive input values. Like local variables of a function.
+    // (birthYear, firstName)
+  - Function body: Block of code that we want to reuse. Processes the function's input data.
+    // const age = 2037 - birthYear;
+    // console.log(`${firstName} is ${age} years old.`);
+  - Return: Statement to output a value from the function and terminate execution.
+    // return age;
+  - Calling, running, invoking, using ()
+  - Arguments: actual values of function parameters, to input data
+    // (1991, 'Bob');
