@@ -327,3 +327,102 @@ Notes on Javascript:
   - Calling, running, invoking, using ()
   - Arguments: actual values of function parameters, to input data
     // (1991, 'Bob');
+
+///////////////////////////////////////////////////////////////////////////////
+3/22/23
+
+14. Arrays and Objects
+
+- Data type specifically for storing sequences of values.
+- Written as a list of values between square brackets, separated by commas.
+  - let listOfNumbers = [2, 3, 5, 7, 11];
+- The first index of an array is zero. i.e listofNumbers[0]; will produce the number 2.
+- Methods (Operations):
+
+  - There are a vast length of methods in JavaScript.
+  - The following are common basic methods: - Push: add elements at the end of an array. - const fiends = ['Michael', 'Steven', 'Peter']; - friends.push('Jay'); - Unshift: add element at the beginning of an array. - friends.unshift('John');
+    -Pop: will remove last element of array.
+    - friends.pop();
+    - Shift: remove element at beginning of an array.
+      - friends.shift();
+    - IndexOf: used to search for a specific value.
+      - console.log(friends.indexOf('Steven'));
+    - Includes: will return true if in array, false if not.
+      - console.log(friends.includes('Steven')); // true
+      - console.log(friends.includes('Bob')); // false
+      - Uses strict equality to check array, can be used in conditionals to test.
+      - if (friends.includes("Steven")) {
+        console.log("You have a friend named Steven");
+        }
+
+- Objects allow us to group values, including other objects, to build more complex structures.
+
+  const morlando = {
+  firstName: "Morlando",
+  lastName: "Johnson",
+  age: 2023 - 1985,
+  job: "insurance",
+  friends: ["Bob", "Pete", "Carl"],
+  };
+  console.log(morlando);
+
+console.log(morlando.lastName);
+console.log(morlando["lastName"]);
+
+const nameKey = "Name";
+console.log(morlando["first" + nameKey]);
+console.log(morlando["last" + nameKey]);
+
+const interestedIn = prompt(
+"What do you want to know about Morlando? Choose between firstName, lastName, age, job, and friends"
+);
+
+if (morlando[interestedIn]) {
+console.log(morlando[interestedIn]);
+} else {
+console.log(
+"Wrong request! What do you want to know about Morlando? Choose between firstName, lastName, age, job, and friends"
+);
+}
+
+morlando.location = "Florida";
+morlando["github"] = "Lando241";
+console.log(morlando);
+
+// Challenge
+// "Morlando has 3 friends and his best friend is Bob"
+
+console.log(
+`${morlando.firstName} has ${morlando.friends.length} friends and his best friend is ${morlando.friends[0]}`
+);
+
+15. Loops
+
+- Fundamental Aspect of every programming language
+- Help to automate tasks that need to be performed over and over again.
+- For Loops:
+  for (let number = 0; number <= 12; number +2) {console.log(number);
+  }
+  // - 0
+  // - 2
+  // - etcetera
+  - For loop continues to run while condition is true.
+  - Parantheses after a for keyword must contain two semicolons.
+    - The part before the first semicolon initializes the loop, usually by defining a binding.
+    - The second part is the expression that checks whether the loop must continue.
+    - The final part updates the state of the loop after every interaction.
+  - 'i' is the traditional letter for for loops
+    - for(let i = 0)
+- Breaking out of a loop
+  - There is a special statement called break that has the effect of immediately jumping out of the enclosed loop.
+    - for (let current = 20; ;current = current +1) {
+      if (current % 7 == 0){
+      console.log(current);
+      break;
+      }
+      }
+      // 21
+    - Modulo is an easy way to test whether a number is divisible by another number(remainder is 0)
+    - Example above doesn't check for end of loop, which means the loop will not stop with the break.
+    - Infinite loop would be produced if break statement was not included, programs stuck in an infinite loop will never finish running.
+  - Continue is similar to break, when encountered in a loop, control jumps out of the body and continues with the loop's next interation.
