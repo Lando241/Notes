@@ -414,6 +414,7 @@ console.log(
   - 'i' is the traditional letter for for loops
     - for(let i = 0)
 - Breaking out of a loop
+
   - There is a special statement called break that has the effect of immediately jumping out of the enclosed loop.
     - for (let current = 20; ;current = current +1) {
       if (current % 7 == 0){
@@ -426,3 +427,46 @@ console.log(
     - Example above doesn't check for end of loop, which means the loop will not stop with the break.
     - Infinite loop would be produced if break statement was not included, programs stuck in an infinite loop will never finish running.
   - Continue is similar to break, when encountered in a loop, control jumps out of the body and continues with the loop's next interation.
+
+- While Loops:
+
+  - while is followed by an expression in parentheses and then a statement, much like if.
+  - The loop keeps entering that statemnet as long as the expression produces a value that gives true when converted to a boolean.
+  - Example:
+    let rep = 1;
+    while (rep <= 10) {
+    console.log(`Lifting weights repetition ${rep}.`)
+    rep++;
+    }
+  - Example: (Dice Roll)
+    let dice = Math.trunc(Math.random() \* 6 + 1);
+
+    while (dice !== 6) {
+    console.log(`You rolled a ${dice}`);
+    dice = Math.trunc(Math.random() \* 6 + 1);
+    if (dice === 6) console.log("Loop is about to end");
+    }
+
+///////////////////////////////////////////////////////////////////////////////
+3/23/23
+
+1. DOM and DOM Manipulation
+
+- Document Object Model, structured representation of HTML documents.
+  - Change text, HTML attributes, CSS styles
+- Automatically created by browser once HTML page loads
+- Stored in a tree structure
+  - Each HTML element is one object
+- Allows JS to access HTML elements and styles to manipulate them.
+- DOM always starts with document object at the top
+  - Document object serves as an entry point to the DOM (i.e: document.querySelector();), needed to select elements
+  - First child of document is usually HTML element (root element)
+  - HTML usually has 2 child elements, <head></head> and <body></body>
+    - These elements are siblings as they are adjacent elements.
+  - DOM !== JavaScript, not part of JS language
+  - DOM methods and properties are part of WEB APIs (libraries for browsers)
+    - API: Application Programming Interface
+  - DOM manipulation works the same in all browsers.
+
+//////////////////////
+Minimal notes for today. Installed node.js, introduction to the DOM, created tutorial project.
