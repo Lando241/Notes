@@ -470,3 +470,217 @@ console.log(
 
 //////////////////////
 Minimal notes for today. Installed node.js, introduction to the DOM, created tutorial project.
+
+///////////////////////////////////////////////////////////////////////////////
+3/24/23
+
+1. Modal Tutorial from Udemy Course
+
+The Complete JavaScript Course 2023: From Zero to Expert! by Jonas Schmedtmann
+
+Using JS to open and close a modal window.
+Learning how to store elements as variables in JS. Doing so will help to avoid having to select various elements over and over.
+
+Examples from tutorial:
+
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnsOpenModal = document.querySelectorAll('.show-modal');
+
+Learning how to create functions to help avoid duplicating code
+
+- Function to open modal windows as well as closing them.
+- Doing so helped to eliminate duplicating close in multiple places.
+
+Learning how to work with CSS classes
+
+- Adding and removing classes to activate and decactive the CSS code (showing and closing the modal window)
+- Classes can also be checked using JS to determine if they contain a specific class
+- Tutorial example is using boolean logic to determine if the modal does not contain the 'hidden' element, if it does not then the keystroke on ESC is used to close the modal window.
+  - document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+    closeModal();
+    }
+    });
+
+///////////////////////////////////////////////////////////////////////////////
+3/28/23
+
+Closer look at functions from Javascript.info and MDN.
+I've been having trouble w/ functions over the past few days. I understand how they work but I think I'm getting confused by the syntax of arguments, parameters, types of functions and when to use them to avoid duplcating code.
+
+1. Function Declaration:
+
+- defines the function with speficied parameters.
+
+function name(parameter1, parameter2, parameterN) {
+//body
+}
+
+function showMessage(){
+alert('Hello everyone!');
+}
+
+- function keyword goes first, then name of the function, then a list of parameters between the parantheses, followed by the code of the function "function body" between the curly braces.
+- function can be called by its name, i.e showMessage();
+- Calling the function executes the codes of the function.
+- Functions help to avoid code duplication.
+
+2. Variables, local and outer.
+
+- A variable declared inside a function is only visible inside that function.
+- Variables declared outside a function are called global variables.
+- Global variables are visible from any function.
+
+function showMessage() {
+let message = 'Hello, I'm JavaScript';
+alert(message);
+}
+
+show message(); //Hello, I'm JavaScript
+alert(message); // <- Will produce error message
+
+- Functions can access an outer variable as well and can modify it
+
+let userName = 'John';
+
+function showMessage() {
+let message = 'Hello, ' + userName";
+alert(message);
+}
+
+showMessage(); // Hello John
+
+let userName = 'John';
+
+function showMessage() {
+userName = 'Bob';
+let message = 'Hello, ' + userName";
+alert(message);
+}
+alert(userName); // John
+showMessage(); // Hello John
+alert(userName); // Bob, changed by function
+
+3. Parameters
+
+- Named variable passed into a function, used to import arguments into functions.
+- Parameters are the variables listed within the parantheses of the function declaration
+
+- When the function is called, the given values(arguments) are copied to the parameters within the function declaration and used by the function
+
+function showMessage(from, text) { // parameters: from, text
+alert(from + ': ' + text);
+}
+
+showMessage('Ann', 'Hello!'); // Ann: Hello! (\*)
+showMessage('Ann', "What's up?"); // Ann: What's up? (\*\*)
+
+4. Arguments
+
+- Value that is passed as input(function parameter) to a function when the function is called.
+
+showMessage(argument1, argument2);
+
+5. Returning a value
+
+- When a return statement is used in a function body, the execution of the function is stopped.
+- If specified, a given value is returned to the function caller.
+- Syntax:
+  reutrn;
+  return expression;
+
+function sum(a, b) {
+return a + b;
+}
+let result = sum(1, 2)
+alert(result); //3
+
+6. Function Expression
+
+- Allows for creation of a new function in the middle of any expression.
+- Function creation happens in the context of the assignment expression (to the right side of =)
+- Example:
+
+let sayHi = function() {
+alert('Hello');
+}
+
+- Omitting a name is allowed for function expressions(no name after function)
+
+7. Function Expression v. Function Declaration
+
+- Function Declaration: a function, declared as a separate statement, in the main code flow
+
+function sum(a, b) {
+return a + b;
+}
+
+- Function Expression: a function, created inside an expression or inside another syntax construct.
+
+let sum = function(a, b) {
+return a + b;
+}
+
+- A Function Expression is created when the execution reaches it and is usable only from that moment.
+
+- A Function Declaration can be called earlier than it is declared.
+
+- In strict mode, when a Function Declaration is within a code block, it's visible everywhere inside that block. But not outside of it.
+
+let age = 16;
+
+if (age < 18) {
+welcome();
+
+function welcome() {
+alert('Hello');
+}
+welcome();
+} else {
+function welcome() {
+alert('Greetings');
+}
+}
+
+welcome(); // Welcome is undefined, Function declaration is available everywhere in the block where it was declared
+
+8. Arrow Functions
+
+- Shorter alternative to function expression.
+- Syntax:
+  () => expression
+
+param => expression
+
+(param) => expression
+
+(param1, paramN) => expression
+
+() => {
+statements
+}
+
+param => {
+statements
+}
+
+(param1, paramN) => {
+statements
+}
+
+- Example:
+  let sum = (a, b) => a + b;
+  console.log(sum(1, 2));
+
+Same as:
+let sum = function(a, b) {
+reutrn a + b;
+}
+console.log(sum(1, 2));
+
+///////////////////////////////////////////////////////////////////////////////
+3/28/23
+
+How JavaScript Works Behind the Scenes
