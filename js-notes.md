@@ -681,6 +681,195 @@ reutrn a + b;
 console.log(sum(1, 2));
 
 ///////////////////////////////////////////////////////////////////////////////
-3/28/23
+3/29/23
 
-How JavaScript Works Behind the Scenes
+1. Global Execution Context created for top level code
+
+- Code not inside any function
+- Functions can be declared to be called later but the code in the function is only executed when called
+
+Execution context - environment where JS is executed (like a box).
+There is only one global execution context
+
+- Default context, created for code that is not inside any function (top-level)
+
+For each function call, a new execution context is created containing all the information to run that function. Same for methods(functions attached to objects).
+
+2. All these executions contexts make up the Call Stack.
+
+- Once all functions are done executing, the JS engine waits for callbacks to arrive.
+- Click event, etc
+
+3. Inside an execution context:
+
+- Variable environment: all variable and function declarations are stored.
+- Arguments objects: all arguments passed into the function that the current execution context belongs to. (Each function gets its own execution context).
+  -Functions can also access variables outside the function.
+  - Arrow functions do not get their own arguments object or this keyword.
+    - Obtain from function parent.
+- Scope Chain
+- this keyword
+
+4. Call Stack
+
+- Place where execution contexts are stacked on top of each other to keep track of where we are in the execution.
+- Context is put on top of the call stack aftering being executed, next context is then called and stacked on top after execution.
+
+5. Scoping
+
+- How our program's variables are organized and accessed.
+- Lexical Scoping: Scoping is controlled by placement of functions and blocks in code.
+  - For example, a function that is written inside another fucntion has access to variables of parent function.
+- Scope: Space or environment in which a certain variable is declared(variable environment in case of functions). There is global scope, fucntion scope, and block scope.
+
+  - Scope of variable is the entire region where a variable can be accessed.
+
+- 3 Types of Scope: Global, Function, Block
+  - Global:
+    - Outside of any function or block
+    - Variables declared in global scope are accessible everywhere
+  - Function:
+    - Variables are accessible only inside function, NOT outside.
+    - Also called local scope.
+  - Block
+    - Variables are accesible only inside block(block scoped).
+    - However, this only applies to let and const variables.
+    - Functions are also block scoped(only in strict mode-always use strict mode).
+- Every scope always has access to all the variables from all its outer scopes(parent scopes).
+
+const myName = '';
+
+function first() {
+const age = 30;
+
+if (age >= 30) {
+const decade = 3;
+var millenial = true;
+}
+function second() {
+const job = 'teacher';
+console.log(`${myName} is a ${age}-old ${job}`)
+}
+
+second();
+}
+
+first();
+
+- In the example above the scopes are as followed:
+  - Global scope: (myName = '')
+  - first() scope: (age = 30), myName = '', millenial = true
+  - second() scope: job = 'teacher', age = 30, myName = '', millenial = true
+- Scope has access to variables from all outer scopes.
+- This shows how a scope chain works, if one scope needs to use a variable and cannot find it in the current scope, it will look in the scope chain to find the variable in a parent scope.
+  - If it cannot find the variable, it will produce an error
+  - Process is called variable lookup.
+  - Variables are not copied from one to another, they simply look up to find the variable.
+  - This process does not work in reverse (look down).
+    - First scope cannot access the job variable in the second scope.
+- Blocks also create scopes, above(between {})
+  - var variable does not apply to block scope, only let and const
+  - Block scope does not get access to any variables in second scope and vice versa in example above.
+    - Because of lexical scoping - because they are not written inside the other., Chain only works upwards, not sideways.
+
+6. Scope Chain v. Call Stack
+
+- Variables stored in the Global scope are the same variables stored in the Global Execution Context
+- Scope Chain has nothing to do with order in which functions were called(Nothing to do w/ execution contexts in Call stack).
+
+7. Recap:
+
+- Scoping asks the question, "where do variables live/where can we access a certain variable, and where not?
+- 3 types of scopes
+  - Global, function, block(ES6).
+    - Only let and const are block-scoped.
+    - var ends up in the closest function scope.
+- Lexical Scoping
+  - Rules of where we can access variables are based on exactly where in the code functions and blocks are written.
+- Every scope has access to all the variables from its outer scope, Scope Chain
+- JS Engine will look up in the scope chain to find the variable it is looking for. (Variable lookup)
+  - Scope chain cannot look downward(children/inner scopes)
+- Scope chain is equal to adding together all variable environments of all parent scopes.
+- Scope chain has nothing to do with the order in which functions were called.
+
+8. Hoisting
+
+- Makes some types of variables accessible/usable in the code before they are actually declared. "Variables lifted to the top of their scope."
+  - Before execution, code is scanned for variable declarations, and for each variable, a new property is created in the variable environment object.
+- Temporal Dead Zone(TDZ)
+
+  - let and const
+  - Variable has not been initialized with a value, and any attempt to access it will result in a ReferenceError
+  - The variable is initialized with a value when execution reaches the line of code where it was declared.
+    - If no initial value was specified with the variable declaration, it will be initialized with a value of undefined.
+  - Introduced in ES6, this process is easier to avoid and catch errors
+  - Makes const variables work, cannot be set to undefined first and then reassigned. Only assigned when execution reaches declaration.
+
+- Being able to use a variable's value in its scope before the line it is declared('Value hoisting')
+- Being able to reference a variable in its scope before the line it is declared.
+  - Value is always undefined.
+
+9. The 'this' keyword
+
+- Special variable that is created for every execution context(every function). Takes the value of (points to) the 'owner' of the function in which the this keyword is used.
+- value is not static. It depends on how the function is called, and its value is only assigned when the function is actually called.
+
+Method -> this = <object that is calling the method>
+Example:
+
+const jonas = {
+name: 'Jonas',
+year: 1989,
+calcAge: function() {
+return 2037 - this.year;
+}
+};
+jonas.calcAge(); // 48
+
+- In the example above the method is calcAge because it is a function attached to the jonas object.
+- The value of the 'this' keyword is jonas, because it is the object that is calling the method.
+- jonas.year is the same as this.year
+
+Simple function call -> this = undefined (strict mode only)
+
+Arrow functions -> this = <this of surrounding function(lexical 'this')>
+
+Event listener -> this = <DOM element that the handler is attached to>
+
+- 'this' does not point to the function itself and also not the varible environment
+
+'this' keyword example:
+
+const jonas = {
+year: 1991,
+calcAge: function () {
+console.log(this);
+console.log(2037 - this.year);
+},
+};
+jonas.calcAge(); // this keyword is the jonas object, line 91
+
+const matilda = {
+year: 2017,
+};
+
+matilda.calcAge = jonas.calcAge;
+matilda.calcAge();
+
+this keyword always points to the object calling the method in this example we are calling the method on matilda. So this keyword will point ot matilda even though the method is written inside the jonas Object.
+
+Arrow function 'this' example:
+
+const jonas = {
+firstName: 'Jonas',
+year: 1991,
+calcAge: function () {
+console.log(this);
+console.log(2037 - this.year);
+},
+
+greet: () => console.log(`Hey ${this.firstName}`),
+};
+jonas.greet();
+
+- this will produce Hey undefined. The arrow function does not get its own this keyword. So the this keyword is going off the parent, which is the global scope(the window, where firstName is not defined.)
