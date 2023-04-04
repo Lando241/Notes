@@ -873,3 +873,301 @@ greet: () => console.log(`Hey ${this.firstName}`),
 jonas.greet();
 
 - this will produce Hey undefined. The arrow function does not get its own this keyword. So the this keyword is going off the parent, which is the global scope(the window, where firstName is not defined.)
+
+///////////////////////////////////////////////////////////////////////////////
+4/2/23
+
+Eloquent JavaScript, Chapter 2: Program Structure
+
+1. Expressions and Statements:
+
+- A fragment of code that produces a value is called an expression.
+- Every value that is written literally is an expression.
+- Expressions can contain other expressions in a way similiar to how subsentences in human languages are nested.
+- A program is a list of statements
+- The simplist kind of statement is an expression with a semicolon after it.
+- A statement stands on its own, so it amounts to something only if it affects the world.
+
+2. Bindings
+
+- Bindings are variables
+- let caught = 5 \* 5;
+  - That’s a second kind of statement. The special word (keyword) let indicates that this sentence is going to define a binding. It is followed by the name of the binding and, if we want to immediately give it a value, by an = operator and an expression.
+- After a binding has been defined, its name can be used as an expression. The value of such expression is the value that the binding currently holds.
+- Bindings do not contain values; they grasp them. Two bindings can refer to the same value.
+- If you ask for the value of an empty binding, you'll get the value of undefined.
+- const stands for constant, and it defines a constant binding, which points at the same value for as long as it lives.
+
+3. Binding Names
+
+- Bindings cannot start with a digit
+- Bindings can include dollar signs($) or underscores(\_) but no other punctuation or special characters.
+- Keywords may not be used as binding names(let, const). There is also a list of reserved words that cannot be used.
+
+4. The Environment
+
+- The collection of bindings and their values that exist at a given time is called the environment.
+
+5. Functions
+
+- A function is a piece of program wrapped in a value. Such values can be applied in order to run the wrapped program.
+  - 'prompt' holds a function that shows a dialog box asking for user unput.
+    - prompt('Enter Password');
+- Executing a function is called invoking, calling, or applying it.
+- You can call a function by putting parantheses after an expression that produces a function value.
+  - The value between the parantheses are given to the program inside the function.
+- Values given to functions are called arguments.
+
+6. The Console.Log Function
+
+- Most JavaScript systems provide a console.log function that writes out its arguments to some text output device. In browswers, the output lands in the console.
+- console.log isn’t a simple binding. It is actually an expression that retrieves the log property from the value held by the console binding.
+
+7. Return Values
+
+- When a function produces a value, it is said to return that value.
+- Function calls can be used within larger expressions.
+
+8. Control Flow
+
+- When programs contain more than one statement, that statements are executed as if they are a story, from top to bottom.
+
+9. Conditional Execution
+
+- Conditional execution is created with the 'if' keyword.
+- We may want to create a branching road, where the program takes the proper branch based on the situation at hand.
+- The 'if' keyword executes or skips a statement depending on the value of a Boolean expression. The deciding expression is written after the keyword, between parantheses, followed by the statement to execute.
+- The braces {} can be used to group any number of statements into a single statement, called a block.
+- You can use the 'else' keyword together with if, to create two separate, alternative execution paths.
+
+let theNumber = Number(prompt("Pick a number"));
+if (!Number.isNaN(theNumber)) {
+console.log("Your number is the square root of " +
+theNumber \* theNumber);
+} else {
+console.log("Hey. Why didn't you give me a number?");
+}
+
+- If you have more than two paths to choose from, you can 'chain' multiple if/else pairs together.
+
+10. While and Do Loops
+
+- Looping control flows allow us to go back to some point in the program where we were before and repeat it with our current program state.
+- A statement starting with the keyword 'while' creates a loop. The word while is followed by an expression in parantheses and then a statement, much like if. The loop keeps entering that statement as long as the expression produces a value that gives true when converted to a boolean.
+
+let number = 0;
+while (number <= 12) {
+console.log(number);
+number = number + 2;
+}
+
+- First a “counter” binding is created to track the progress of the loop. Then comes a while loop, usually with a test expression that checks whether the counter has reached its end value. At the end of the loop body, the counter is updated to track progress.
+- The 'do' loop is a control structure similar to a while loop. It differs only on one point:
+  - a do loop always executes its body at least once, and it starts testing whether it should stop only after that first execution.
+
+let yourName;
+do {
+yourName = prompt("Who are you?");
+} while (!yourName);
+console.log(yourName);
+
+11. Indenting Code
+
+- The role of indentation inside blocks is to make the structure of the code stand out. With proper indentation, the visual shape of a program corresponds to the shape of the blocks inside it.
+
+12. For Loops
+
+- JavaScript and similar languages provide a slightly shorter and more comprehensive form, the for loop.
+  for (let number = 0; number <= 12; number = number + 2) {
+  console.log(number);
+  }
+
+- This program is exactly equivalent to the earlier even-number-printing example. The only change is that all the statements that are related to the “state” of the loop are grouped together after for.
+- The parantheses after a for keyword must contain two semicolons.
+  - The part before the first semicolon initializes the loop, usually by defining a binding.
+  - The second part is the expression that checks whether the loop must continue.
+  - The final part updates the state of the loop after every iteration.
+  - In most cases this is shorter and clearer than a while construct.
+
+13. Breaking Out of a Loop
+
+- Having the looping condition produce false is not the only way a loop can finish.
+- There is a special statement called break that has the effect of immediately jumping out of the enclosing loop.
+- Using the remainder (%) operator is an easy way to test whether a number is divisible by another number. If it is, the remainder of their division is zero.
+- If you were to remove that break statement or you accidentally write an end condition that always produces true, your program would get stuck in an infinite loop.
+
+14. Updating Bindings Succinctly
+
+- A program often needs to “update” a binding to hold a value based on that binding’s previous value. JavaScript provides a shortcut for this.
+  - counter = counter + 1;
+  - counter += 1;
+
+for (let number = 0; number <= 12; number += 2) {
+console.log(number);
+}
+
+- For counter += 1 and counter -= 1, there are even shorter equivalents: counter++ and counter--.
+
+15. Comments
+
+- A comment is a piece of text that is part of a program but is completely ignored by the computer.
+- JavaScript has two ways of writing comments.
+  - Single line comment: // (followed by text)
+  - Multi-line comment: /\* \*/
+
+Eloquent JavaScript, Chapter 3: Functions
+
+- Functions are the bread and butter of JavaScript programming.
+  - Structure larger programs, reduce repetition, to associate names with subprograms, isolate subprograms from each other.
+
+1. Defining a Function
+
+- A function is created with an expression that srtarts with the keyword 'function'.
+- Functions have a set of parameters, and a body(contains the statements that are to be executed when the function is called).
+- A function can have multiple parameters or no parameters at all.
+- A return statement determines the value the function returns.
+  - A return keyword without an expression after it will cause the function to return undefined.
+- Parameters to a function behave like regular bindings, but their initial values are given by the caller of the function, not the code in the function itself.
+
+2. Bindings and Scope
+
+- Each binding has a scope, which is the part of the program in which the binding is visible.
+  - Bindings defined outside of any function or block, the scope is the whole program - you can refer to such bindings wherever you want.
+    - These are called global.
+- Bindings created for function parameters or declared inside a function can be referenced only in that function, so they are know as local bindings.
+
+///////////////////////////////////////////////////////////////////////////////
+4/4/23
+
+Udemy JavaScript Course: Section 9: Data Structures, Modern Operators, and Strings
+
+1. Destructuring
+
+- Unpacking values from an array or an object into separate variables.
+- Destructing allows you to break a complex data structure down into a smaller data structure.
+- Desturcting to retrieve elements from an array and store them into variables in an easy way.
+
+const arr = [2, 3, 4];
+const [x, y, z] = arr;
+console.log(x, y, z);
+
+const restaurant = {
+name: 'Classico Italiano',
+location: 'Via Angelo Tavanti 23, Firenze, Italy',
+categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+order: function (starterIndex, mainIndex) {
+return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+},
+};
+
+let [main, , secondary] = restaurant.categories;
+console.log(main, secondary); // Italian Vegetarian
+
+// Switching variables
+[main, secondary] = [secondary, main];
+console.log(main, secondary); // Vegetarian Italian
+
+restaurant.order(2, 0);
+console.log(restaurant.order(2, 0)); // (2) ['Garlic Bread', 'Pizza']
+
+// Receive 2 return values from a function
+const [starter, mainCourse] = restaurant.order(2, 0);
+console.log(starter, mainCourse); // Garlic Bread Pizza
+
+// Nested Destructuring
+const nested = [2, 4, [5, 6]];
+// const [i, , j] = nested;
+// console.log(i, j); // 2, [5, 6]
+
+const [i, , [j, k]] = nested;
+console.log(i, j, k); // 2 5 6
+
+// Default Values
+const [p = 1, q = 1, r = 1] = [8, 9];
+console.log(p, q, r); // 8 9 1
+
+2. Destructuring Objects
+
+- Curly braces are used to destructure objects.
+  const { name, openingHours, categories } = restaurant;
+  - Creates 3 new variables based on the object.
+- Helps to reduce code
+
+const restaurant = {
+name: 'Classico Italiano',
+location: 'Via Angelo Tavanti 23, Firenze, Italy',
+categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+openingHours: {
+thu: {
+open: 12,
+close: 22,
+},
+fri: {
+open: 11,
+close: 23,
+},
+sat: {
+open: 0,
+close: 24,
+},
+},
+
+order: function (starterIndex, mainIndex) {
+return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+},
+
+orderDelivery: function ({
+starterIndex = 1,
+mainIndex = 0,
+time = '20:00',
+address,
+}) {
+console.log(
+`Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}.`
+);
+},
+};
+
+restaurant.orderDelivery({
+time: '22:30',
+address: 'Via de Sole, 21',
+mainIndex: 2,
+starterIndex: 2,
+});
+
+restaurant.orderDelivery({
+address: 'Via de Sole, 21',
+starterIndex: 1,
+});
+
+const { name, openingHours, categories } = restaurant;
+console.log(name, openingHours, categories); // Classico Italiano {thu: {…}, fri: {…}, sat: {…}} (4) ['Italian', 'Pizzeria', 'Vegetarian', 'Organic']
+
+const {
+name: restaurantName,
+openingHours: hours,
+categories: tags,
+} = restaurant;
+console.log(restaurantName, hours, tags); // Classico Italiano {thu: {…}, fri: {…}, sat: {…}} (4) ['Italian', 'Pizzeria', 'Vegetarian', 'Organic']
+
+// Default Values
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters); // [] (4) ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad']
+
+// Mutating Variables
+let a = 111;
+let b = 999;
+const obj = { a: 23, b: 7, c: 14 };
+({ a, b } = obj); // Have to wrap in parantheses to avoid unexpected token error
+console.log(a, b); // 23, 7
+
+// Nested Objects
+const {
+fri: { open, close },
+} = openingHours;
+console.log(open, close); // 11 23
